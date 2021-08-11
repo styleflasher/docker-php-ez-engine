@@ -1,5 +1,5 @@
 FROM php:7.4-fpm
-MAINTAINER Plopix
+MAINTAINER styleflasher
 
 RUN mkdir -p /usr/share/man/man1 && apt-get update -q -y && apt-get install -q -y --no-install-recommends build-essential libxml2-dev libmemcached-dev libmemcached11 libssl-dev libfreetype6-dev rsync \
     libcurl4-openssl-dev libzip-dev libmagickwand-dev libmagickcore-dev libjpeg62-turbo-dev libmcrypt-dev libxpm-dev libpng-dev libicu-dev libxslt1-dev ca-certificates openssl \
@@ -25,7 +25,7 @@ RUN docker-php-ext-configure mysqli --with-mysqli=mysqlnd && \
     echo "no" | pecl install memcached && \
     pecl install xdebug && \
     docker-php-ext-enable memcached mongodb opcache imagick redis && \
-    docker-php-ext-install mysqli pdo_mysql iconv exif gd pcntl intl curl xsl xml json zip
+    docker-php-ext-install mysqli pdo_mysql iconv exif gd pcntl intl curl xsl xml json zip bcmath
 
 RUN curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
     tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp && \
